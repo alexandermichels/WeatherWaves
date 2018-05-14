@@ -12,13 +12,13 @@ class APIKey:
     def __str__(self):
         return self.key
         
-def generate_weather_url(state, city, key):
-    return "http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(key, state, city)
+    def get_weather_url(state, city, key):
+        return "http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(key, state, city)
 
 def main():
     key = APIKey('WeatherUndergroundAPIKey')
     print(key)
-    url = generate_weather_url('PA', 'New_Wilmington', key)
+    url = key.get_weather_url('PA', 'New_Wilmington')
     print(url)
     res = urllib.request.urlopen(url)
     print(res)
