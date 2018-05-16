@@ -1,7 +1,7 @@
 import urllib.request, json, vlc
 from gtts import gTTS
 
-class APIKey:
+class WeatherReporter:
     '''
     Simple class to interact with the WeatherUnderground API 
     
@@ -15,15 +15,22 @@ class APIKey:
     '''
     key = ""
     curr_json = ""
-    def __init__(self, filename):
+    fore_json = ""
+    def __init__(self, filename, state, city):
         file = open(filename)
         self.key = file.read().strip()
+        self.get_conditions(state,city)
+        self.get_forecast(state,city)
     
     def __str__(self):
         return self.key
         
-    def get_weather(self, state, city):
+    def get_conditions(self, state, city):
         self.curr_json = json.loads(urllib.request.urlopen("http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode("utf-8"))
+        return self.curr_json
+    
+    def get_forecast(self, state, city):
+        self.fore_json = json.loads(urllib.request.urlopen("http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, state, city)).read().decode("utf-8"))
         return self.curr_json
     
     def print_json(self):
@@ -43,8 +50,7 @@ class APIKey:
         
         
 def main():
-    key = APIKey('WeatherUndergroundAPIKey')
-    res = key.get_weather('PA', 'New_Wilmington')
+    key = WeatherReporter('WeatherUndergroundAPIKey', 'PA', 'New_Wilmington')
     key.print_json()
     print(key.get_report())
     tts = gTTS(text=key.get_report(), lang='en')
