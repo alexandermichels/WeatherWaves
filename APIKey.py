@@ -29,6 +29,14 @@ class WeatherReporter:
     def get_conditions(self, state, city):
         self.curr_json = json.loads(urllib.request.urlopen("http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode("utf-8"))
         return self.curr_json
+            
+    def get_report_mp3(self):
+        tts = gTTS(text = self.get_report_string(), lang='en')
+        tts.save(self.mp3_filename)
+        
+    def get_conditions_string(self):
+        #add logic
+        return "It is currently {} degrees farenheit, but feels like {}, and it is {} out today".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather())
         
     def get_curr_feels_like(self):
         return self.curr_json["current_observation"]["feelslike_f"]
@@ -43,14 +51,23 @@ class WeatherReporter:
         self.fore_json = json.loads(urllib.request.urlopen("http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, state, city)).read().decode("utf-8"))
         return self.curr_json
     
-    def get_report_mp3(self):
-        tts = gTTS(text = self.get_report_string(), lang='en')
-        tts.save(self.mp3_filename)
+    def get_forecast_next_step(self):
+        return self.fore_json["forecast"]["txt_forecast"]["forecastday"][1]
+    
+    def get_forecast_next_step_string(self):
+        s = self.get_forecast_next_step()
+        return "{} you should expect {}".format(s['title'], s['fcttext'])
+    
+    def get_forecast_two_steps(self):
+        return self.fore_json["forecast"]["txt_forecast"]["forecastday"][2]
         
+    def get_forecast_two_steps_string(self):
+        s = self.get_forecast_two_steps()
+        return "{} you should expect {}".format(s['title'], s['fcttext'])
+    
     def get_report_string(self):
-        #add logic
-        return "It is currently {} degrees farenheit, but feels like {}, and it is {} out today".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather())
-        
+        return "{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
+
     def print_curr_json(self):
         print(json.dumps(self.curr_json, sort_keys = True, indent = 4))
     
@@ -62,7 +79,7 @@ class WeatherReporter:
         
 def main():
     key = WeatherReporter('WeatherUndergroundAPIKey', 'PA', 'New_Wilmington')
-    key.print_fore_json()
+    print(key.get_report_string())
     key.get_report_mp3()
     key.read_mp3()
     
