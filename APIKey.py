@@ -36,7 +36,7 @@ class WeatherReporter:
         
     def get_conditions_string(self):
         #add logic
-        return "It is currently {} degrees farenheit, but feels like {}, and it is {} out today".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather())
+        return "It is currently {} degrees farenheit, but feels like {}, and it is {} out.".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather())
         
     def get_curr_feels_like(self):
         return self.curr_json["current_observation"]["feelslike_f"]
@@ -56,14 +56,14 @@ class WeatherReporter:
     
     def get_forecast_next_step_string(self):
         s = self.get_forecast_next_step()
-        return "{} you should expect {}".format(s['title'], s['fcttext'])
+        return "{} you should expect {}".format(s['title'], s['fcttext']).replace("F.", ".")
     
     def get_forecast_two_steps(self):
         return self.fore_json["forecast"]["txt_forecast"]["forecastday"][2]
         
     def get_forecast_two_steps_string(self):
         s = self.get_forecast_two_steps()
-        return "{} you should expect {}".format(s['title'], s['fcttext'])
+        return "{} you should expect {}".format(s['title'], s['fcttext']).replace("F.", ".")
     
     def get_report_string(self):
         return "{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
@@ -79,9 +79,12 @@ class WeatherReporter:
         
 def main():
     key = WeatherReporter('WeatherUndergroundAPIKey', 'PA', 'New_Wilmington')
+    key.print_fore_json()
     print(key.get_report_string())
     key.get_report_mp3()
     key.read_mp3()
+    #deal with degree and NWSE abbrevations
+    
     
 if __name__ == "__main__" :
     main()
