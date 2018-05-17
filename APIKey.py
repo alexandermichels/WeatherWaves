@@ -25,6 +25,14 @@ class WeatherReporter:
     
     def __str__(self):
         return self.key
+    
+    def format_string(self, string):
+        string = string.replace("F.", ".")
+        dirAbr = [ ' N ', ' E ', ' S ', ' W ', ' NW ', ' NE ', ' SW ', ' SE ', ' NNE ', ' ENE ', ' ESE ', ' SSE ', ' SSW ', ' WSW ', ' WNW ', ' NNW ']
+        dirStr = [ ' North ', ' East ', ' South ', ' West ', ' Northwest ', ' Northeast ', ' Southwest ', ' Southeast ', ' North Northeast ', ' East Northeast ', ' East Southeast ', ' South Southeast ', ' South Southwest ', ' West Southwest ', ' West Northwest ', ' North Northwest ']
+        for i in range(0, len(dirAbr)):
+            string = string.replace(dirAbr[i], dirStr[i])
+        return string
         
     def get_conditions(self, state, city):
         self.curr_json = json.loads(urllib.request.urlopen("http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode("utf-8"))
@@ -56,17 +64,18 @@ class WeatherReporter:
     
     def get_forecast_next_step_string(self):
         s = self.get_forecast_next_step()
-        return "{} you should expect {}".format(s['title'], s['fcttext']).replace("F.", ".")
+        return "{} you should expect {}".format(s['title'], s['fcttext'])
     
     def get_forecast_two_steps(self):
         return self.fore_json["forecast"]["txt_forecast"]["forecastday"][2]
         
     def get_forecast_two_steps_string(self):
         s = self.get_forecast_two_steps()
-        return "{} you should expect {}".format(s['title'], s['fcttext']).replace("F.", ".")
+        return "{} you should expect {}".format(s['title'], s['fcttext'])
     
     def get_report_string(self):
-        return "{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
+        s = "{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
+        return self.format_string(s)
 
     def print_curr_json(self):
         print(json.dumps(self.curr_json, sort_keys = True, indent = 4))
