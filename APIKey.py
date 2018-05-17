@@ -43,14 +43,19 @@ class WeatherReporter:
         tts.save(self.mp3_filename)
         
     def get_conditions_string(self):
-        #add logic
-        return "It is currently {} degrees farenheit, but feels like {}, and it is {} out.".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather())
+        curr_temp = self.get_curr_temp()
+        feels_like = self.get_curr_feels_like()
+        if (abs(curr_temp - feels_like) > 5):
+            return "It is currently {} degrees farenheit, but feels like {}, and it is {} out.".format(curr_temp, feels_like, self.get_curr_weather())
+        else:
+            return "It is currently {} degrees farenheit and it is {} out.".format(curr_temp, self.get_curr_weather())
+        
         
     def get_curr_feels_like(self):
-        return self.curr_json["current_observation"]["feelslike_f"]
+        return float(self.curr_json["current_observation"]["feelslike_f"])
 
     def get_curr_temp(self):
-        return self.curr_json["current_observation"]['temp_f']       
+        return float(self.curr_json["current_observation"]['temp_f'])    
         
     def get_curr_weather(self):
         return self.curr_json["current_observation"]['weather']
@@ -88,7 +93,6 @@ class WeatherReporter:
         
 def main():
     key = WeatherReporter('WeatherUndergroundAPIKey', 'PA', 'New_Wilmington')
-    key.print_fore_json()
     print(key.get_report_string())
     key.get_report_mp3()
     key.read_mp3()
