@@ -6,16 +6,35 @@ class WeatherReporter:
     Simple class to interact with the WeatherUnderground API 
     
     ---Instance Variables
+    curr_json = the JSON of the current conditions
+    fore_json = the JSON of the current forecast
     key = a string containing the API key
+    mp3_filename = the file name of the MP3 file containing the weather report
     
     ---Methods
     __init__(filename) = takes a string, opens said file, and sets the key field as the read().strip() output
     __str__ = returns the key field
-    get_weather(state, city) = returns the JSON of the weather at the location
+    format_string(string) = changes abbreviations
+    get_conditions(state, city) = sends an HTTP GET request to get the current conditions at the location and decodes the JSON
+    get_report_mp3() = creates and saves a report MP3 based on get_report_string() and sets mp3_filename to this file
+    get_conditions_string() = returns a string with the current temp and weather conditions as well as feels like if abs of diff > 5
+    get_curr_feels_like() = returns the current condition's feels like temperature
+    get_curr_temp() = returns the current condition's temperature in Farenheit
+    get_curr_weather() = returns the string with the current weather conditions (cloudy, rainy, etc.)
+    get_forecast(state, city) = sends an HTTP GET request to get the current forecast at the location and decodes the JSON
+    get_forecast_next_step() = returns a JSON of the next time step in the forecast
+    get_forecast_next_step_string() = a string with the time steps's name and conditions
+    get_forecast_two_steps() = returns a JSON of the forecast two time steps in the future
+    get_forecast_two_steps_string() = returns a string with the name and conditions two time steps in the future
+    get_report_string() = returns a formated (format_string()) string with current conditions, and the next two time step's forecasts
+    print_curr_json() = prints the curr_json field
+    print_fore_json() = prints the fore_json field
+    read_mp3() = plays the MP3 in the mp3_filename field
     '''
-    key = ""
+
     curr_json = ""
     fore_json = ""
+    key = ""
     mp3_filename = "weather.mp3"
     def __init__(self, filename, state, city):
         file = open(filename)
@@ -49,7 +68,6 @@ class WeatherReporter:
             return "It is currently {} degrees farenheit, but feels like {}, and it is {} out.".format(curr_temp, feels_like, self.get_curr_weather())
         else:
             return "It is currently {} degrees farenheit and it is {} out.".format(curr_temp, self.get_curr_weather())
-        
         
     def get_curr_feels_like(self):
         return float(self.curr_json["current_observation"]["feelslike_f"])
