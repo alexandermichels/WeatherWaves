@@ -1,5 +1,4 @@
-import urllib.request, json, vlc
-from gtts import gTTS
+import urllib.request, json, vlc, subprocess, os, sys
 
 class WeatherReporter:
     '''
@@ -58,8 +57,12 @@ class WeatherReporter:
         return self.curr_json
             
     def get_report_mp3(self):
-        tts = gTTS(text = self.get_report_string(), lang='en')
-        tts.save(self.mp3_filename)
+        #tts = gTTS(text = self.get_report_string(), lang='en')
+        #tts.save(self.mp3_filename)
+        path = os.path.dirname(os.path.realpath(__file__))
+        python3_command = "{}/GoogleCloudTextToSpeech.py weather.txt".format(path)
+        process = subprocess.Popen(python3_command.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
         
     def get_conditions_string(self):
         curr_temp = self.get_curr_temp()
@@ -109,12 +112,16 @@ class WeatherReporter:
     def read_mp3(self):
         vlc.MediaPlayer(self.mp3_filename).play()
         
+    def write_report_string(self):
+        f = open('weather.txt', 'w')
+        f.write(self.get_report_string())
+        f.close()
+        
 def main():
     key = WeatherReporter('WeatherUndergroundAPIKey', 'PA', 'New_Wilmington')
-    print(key.get_report_string())
+    key.write_report_string()
     key.get_report_mp3()
     key.read_mp3()
-    #deal with degree and NWSE abbrevations
     
     
 if __name__ == "__main__" :
