@@ -8,6 +8,8 @@ class WeatherReporter(object):
     u'''
     Simple class to interact with the WeatherUnderground API 
     
+    gcloud auth application-default login    
+    
     ---Instance Variables
     curr_json = the JSON of the current conditions
     fore_json = the JSON of the current forecast
