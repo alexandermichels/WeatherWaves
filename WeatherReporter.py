@@ -42,6 +42,7 @@ class WeatherReporter(object):
     fore_json = u""
     key = u""
     mp3_filename = u"weather.mp3"
+    
     def __init__(self, filename, state, city):
         file = open(filename)
         self.key = file.read().strip()
@@ -64,18 +65,16 @@ class WeatherReporter(object):
         return self.curr_json
             
     def get_report_mp3(self):
-        #tts = gTTS(text = self.get_report_string(), lang='en')
-        #tts.save(self.mp3_filename)
         try:
             client = texttospeech.TextToSpeechClient()
-        
             input_text = texttospeech.types.SynthesisInput(text=self.get_report_string())
-            voice = texttospeech.types.VoiceSelectionParams(language_code="en-US", ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
+            voice = texttospeech.types.VoiceSelectionParams(language_code=u'en-US', ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
             audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
             response = client.synthesize_speech(input_text, voice, audio_config)
             
-            with open("weather.mp3", 'wb') as out:
+            with open(self.mp3_filename, 'wb') as out:
                 out.write(response.audio_content)
+                
         except:
             tts = gTTS(text = self.get_report_string(), lang="en")
             tts.save(self.mp3_filename)
@@ -116,8 +115,15 @@ class WeatherReporter(object):
         return u"{} you should expect {}".format(s[u'title'], s[u'fcttext'])
     
     def get_report_string(self):
-        s = u"{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
-        return self.format_string(s)
+        if self.is_night():
+            s = u"{} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string())
+            return self.format_string(s)
+        else:
+            s = u"{} {} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string(), self.get_forecast_two_steps_string())
+            return self.format_string(s)
+    
+    def is_night(self):
+        return ("night" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"])
 
     def print_curr_json(self):
         print json.dumps(self.curr_json, sort_keys = True, indent = 4)
@@ -128,14 +134,30 @@ class WeatherReporter(object):
     def read_mp3(self):
         vlc.MediaPlayer(self.mp3_filename).play()
         
+    def write_all(self):
+        self.write_curr_json()
+        self.write_fore_json()
+        self.write_report_string()
+        
+    def write_curr_json(self):
+        f = open("curr_json.txt", "w")
+        f.write(json.dumps(self.curr_json, sort_keys=True, indent=4, separators=(',', ': ')).decode('latin1'))
+        f.close()
+        
+    def write_fore_json(self):
+        f = open("fore_json.txt", "w")
+        f.write(json.dumps(self.fore_json, sort_keys=True, indent=4, separators=(',', ': ')).decode('latin1'))
+        f.close()
+    
     def write_report_string(self):
-        f = open(u'weather.txt', u'w')
+        f = open("weather.txt", "w")
         f.write(self.get_report_string())
         f.close()
         
 def main():
     key = WeatherReporter(u'WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
     key.get_report_mp3()
+    key.write_all()
     key.read_mp3()
     
     
