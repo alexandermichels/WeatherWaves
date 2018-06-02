@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 import json, vlc, urllib2, urllib
 from io import open
+from gtts import gTTS
 from google.cloud import texttospeech
 
 class WeatherReporter(object):
@@ -65,16 +66,19 @@ class WeatherReporter(object):
     def get_report_mp3(self):
         #tts = gTTS(text = self.get_report_string(), lang='en')
         #tts.save(self.mp3_filename)
-        client = texttospeech.TextToSpeechClient()
-    
-        input_text = texttospeech.types.SynthesisInput(text=self.get_report_string())
+        try:
+            client = texttospeech.TextToSpeechClient()
         
-        voice = texttospeech.types.VoiceSelectionParams(language_code='en-US', ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
-        audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
-        response = client.synthesize_speech(input_text, voice, audio_config)
-    
-        with open('weather.mp3', 'wb') as out:
-            out.write(response.audio_content)
+            input_text = texttospeech.types.SynthesisInput(text=self.get_report_string())
+            voice = texttospeech.types.VoiceSelectionParams(language_code="en-US", ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
+            audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
+            response = client.synthesize_speech(input_text, voice, audio_config)
+            
+            with open("weather.mp3", 'wb') as out:
+                out.write(response.audio_content)
+        except:
+            tts = gTTS(text = self.get_report_string(), lang="en")
+            tts.save(self.mp3_filename)
         
     def get_conditions_string(self):
         curr_temp = self.get_curr_temp()
