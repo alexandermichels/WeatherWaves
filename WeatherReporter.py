@@ -54,11 +54,30 @@ class WeatherReporter(object):
     
     def format_string(self, string):
         string = string.replace(u"F.", u".")
+        string = string.replace("cloudy", "cloudy skies")
+        string = string.replace("Cloudy", "cloudy skies")
+        string = string.replace("High", "High of")
+        string = string.replace("Low", "Low of")
         dirAbr = [ u' N ', u' E ', u' S ', u' W ', u' NW ', u' NE ', u' SW ', u' SE ', u' NNE ', u' ENE ', u' ESE ', u' SSE ', u' SSW ', u' WSW ', u' WNW ', u' NNW ']
         dirStr = [ u' North ', u' East ', u' South ', u' West ', u' Northwest ', u' Northeast ', u' Southwest ', u' Southeast ', u' North Northeast ', u' East Northeast ', u' East Southeast ', u' South Southeast ', u' South Southwest ', u' West Southwest ', u' West Northwest ', u' North Northwest ']
         for i in xrange(0, len(dirAbr)):
             string = string.replace(dirAbr[i], dirStr[i])
+        string = string +  (" It's currently %d degrees at Titan Radio." % (int(self.get_curr_temp())))
         return string
+    
+    def format_string_wind(self, string):
+        orig = string
+        ind = string.find(" Winds")
+        string = string[ind:string.find(".",ind)+1]
+        if string == ".":
+            return orig
+        for i in range(3,9):
+            if (str(i) in string):
+                if i == 5 and i in [5,15,25]:
+                    pass
+                else:
+                    return orig
+        return orig.replace(string,"")
         
     def get_conditions(self, state, city):
         self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
@@ -80,18 +99,18 @@ class WeatherReporter(object):
             tts.save(self.mp3_filename)
         
     def get_conditions_string(self):
-        curr_temp = self.get_curr_temp()
-        feels_like = self.get_curr_feels_like()
+        curr_temp = int(self.get_curr_temp())
+        feels_like = int(self.get_curr_feels_like())
         if (abs(curr_temp - feels_like) > 5):
-            return u"Wilmington area weather, it is currently {} degrees farenheit, but feels like {}, and it is {} out.".format(curr_temp, feels_like, self.get_curr_weather())
+            return self.format_string_wind(u"Wilmington area weather, it is currently {}, but feels like {}, and it is {}.".format(curr_temp, feels_like, self.get_curr_weather()))
         else:
-            return u"Wilmington area weather, it is currently {} degrees farenheit and it is {} out.".format(curr_temp, self.get_curr_weather())
+            return self.format_string_wind(u"Wilmington area weather, it is currently {} and it is {}.".format(curr_temp, self.get_curr_weather()))
         
     def get_curr_feels_like(self):
-        return float(self.curr_json[u"current_observation"][u"feelslike_f"])
+        return self.curr_json[u"current_observation"][u"feelslike_f"]
 
     def get_curr_temp(self):
-        return float(self.curr_json[u"current_observation"][u'temp_f'])    
+        return self.curr_json[u"current_observation"][u'temp_f']
         
     def get_curr_weather(self):
         return self.curr_json[u"current_observation"][u'weather']
@@ -105,17 +124,27 @@ class WeatherReporter(object):
     
     def get_forecast_next_step_string(self):
         s = self.get_forecast_next_step()
-        return u"{} you should expect {}".format(s[u'title'], s[u'fcttext'])
+        return self.format_string_wind(u"{} you should expect {}".format(s[u'title'], s[u'fcttext']))
     
     def get_forecast_two_steps(self):
         return self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][2]
         
     def get_forecast_two_steps_string(self):
         s = self.get_forecast_two_steps()
-        return u"{} you should expect {}".format(s[u'title'], s[u'fcttext'])
-    
+        return self.format_string_wind(u"{} you should expect {}".format(s[u'title'], s[u'fcttext']))
+        
+    def get_forecast_weekend_string(self):
+        i = 1
+        s = self.get_conditions_string()
+        while((("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']))):
+            s = s + self.format_string_wind(u" {} you should expect {}".format(self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title'], self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'fcttext']))
+            i = i+1
+        return self.format_string(s)
+        
     def get_report_string(self):
-        if self.is_night():
+        if self.is_weekend():
+            return self.get_forecast_weekend_string()
+        elif self.is_night():
             s = u"{} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string())
             return self.format_string(s)
         else:
@@ -124,6 +153,9 @@ class WeatherReporter(object):
     
     def is_night(self):
         return ("night" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"])
+    
+    def is_weekend(self):
+        return (("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]))
 
     def print_curr_json(self):
         print json.dumps(self.curr_json, sort_keys = True, indent = 4)
