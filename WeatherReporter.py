@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
-import json, vlc, urllib2, urllib
+import json, vlc, urllib2, urllib, time
 from io import open
 from gtts import gTTS
 from google.cloud import texttospeech
+from google.oauth2 import service_account
 
 class WeatherReporter(object):
     u'''
@@ -80,12 +81,19 @@ class WeatherReporter(object):
         return orig.replace(string,"")
         
     def get_conditions(self, state, city):
-        self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
-        return self.curr_json
+        try:
+            self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
+            return self.curr_json
+        except:
+            time.sleep(.1)
+            return self.get_conditions(state,city)
             
     def get_report_mp3(self):
         try:
-            client = texttospeech.TextToSpeechClient()
+            SCOPES = ['https://www.googleapis.com/auth/cloud-platform']
+            SERVICE_ACCOUNT_FILE = 'GoogleKey.json'
+            credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+            client = texttospeech.TextToSpeechClient(credentials=credentials)
             input_text = texttospeech.types.SynthesisInput(text=self.get_report_string())
             voice = texttospeech.types.VoiceSelectionParams(language_code=u'en-US', ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
             audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
@@ -99,25 +107,27 @@ class WeatherReporter(object):
             tts.save(self.mp3_filename)
         
     def get_conditions_string(self):
-        curr_temp = int(self.get_curr_temp())
-        feels_like = int(self.get_curr_feels_like())
-        if (abs(curr_temp - feels_like) > 5):
-            return self.format_string_wind(u"Wilmington area weather, it is currently {}, but feels like {}, and it is {}.".format(curr_temp, feels_like, self.get_curr_weather()))
+        if (abs(self.get_curr_temp() - self.get_curr_feels_like()) > 5):
+            return self.format_string_wind(u"Wilmington area weather, it is currently {}, but feels like {}, and it is {}.".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather()))
         else:
-            return self.format_string_wind(u"Wilmington area weather, it is currently {} and it is {}.".format(curr_temp, self.get_curr_weather()))
+            return self.format_string_wind(u"Wilmington area weather, it is currently {} and it is {}.".format(self.get_curr_temp(), self.get_curr_weather()))
         
     def get_curr_feels_like(self):
-        return self.curr_json[u"current_observation"][u"feelslike_f"]
+        return int(float(self.curr_json[u"current_observation"][u"feelslike_f"]))
 
     def get_curr_temp(self):
-        return self.curr_json[u"current_observation"][u'temp_f']
+        return int(float(self.curr_json[u"current_observation"][u'temp_f']))
         
     def get_curr_weather(self):
         return self.curr_json[u"current_observation"][u'weather']
         
     def get_forecast(self, state, city):
-        self.fore_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
-        return self.curr_json
+        try:
+            self.fore_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
+            return self.curr_json
+        except:
+            time.sleep(.1)
+            return self.get_forecast(state,city)
     
     def get_forecast_next_step(self):
         return self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][1]
