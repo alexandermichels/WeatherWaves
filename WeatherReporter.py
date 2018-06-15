@@ -55,8 +55,9 @@ class WeatherReporter(object):
     
     def format_string(self, string):
         string = string.replace(u"F.", u".")
+        string = string.replace("Cloudy", "cloudy")
         string = string.replace("cloudy", "cloudy skies")
-        string = string.replace("Cloudy", "cloudy skies")
+        string = string.replace("skies skies", "skies")
         string = string.replace("High", "High of")
         string = string.replace("Low", "Low of")
         dirAbr = [ u' N ', u' E ', u' S ', u' W ', u' NW ', u' NE ', u' SW ', u' SE ', u' NNE ', u' ENE ', u' ESE ', u' SSE ', u' SSW ', u' WSW ', u' WNW ', u' NNW ']
@@ -149,11 +150,11 @@ class WeatherReporter(object):
         while((("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']))):
             s = s + self.format_string_wind(u" {} you should expect {}".format(self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title'], self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'fcttext']))
             i = i+1
-        return self.format_string(s)
+        return s
         
     def get_report_string(self):
         if self.is_weekend():
-            return self.get_forecast_weekend_string()
+            return self.format_string(self.get_forecast_weekend_string())
         elif self.is_night():
             s = u"{} {}".format(self.get_conditions_string(), self.get_forecast_next_step_string())
             return self.format_string(s)
@@ -199,6 +200,7 @@ class WeatherReporter(object):
 def main():
     key = WeatherReporter(u'WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
     key.get_report_mp3()
+    key.print_fore_json()
     key.write_all()
     key.read_mp3()
     
