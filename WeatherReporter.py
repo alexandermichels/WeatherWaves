@@ -7,10 +7,8 @@ from google.cloud import texttospeech
 from google.oauth2 import service_account
 
 class WeatherReporter(object):
-    u'''
-    Simple class to interact with the WeatherUnderground API 
-    
-    gcloud auth application-default login    
+    u'''  Rewrite this?
+    Simple class to interact with the WeatherUnderground API
     
     ---Instance Variables
     curr_json = the JSON of the current conditions
@@ -38,10 +36,6 @@ class WeatherReporter(object):
     print_fore_json() = prints the fore_json field
     read_mp3() = plays the MP3 in the mp3_filename field
     '''
-
-    curr_json = u""
-    fore_json = u""
-    key = u""
     mp3_filename = u"weather.mp3"
     
     def __init__(self, filename, state, city):
