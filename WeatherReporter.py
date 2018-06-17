@@ -160,7 +160,7 @@ class WeatherReporter(object):
         return ("night" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"])
     
     def is_weekend(self):
-        return (("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]))
+        return (("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][0][u"title"]))
 
     def print_curr_json(self):
         print json.dumps(self.curr_json, sort_keys = True, indent = 4)
@@ -194,7 +194,6 @@ class WeatherReporter(object):
 def main():
     key = WeatherReporter(u'WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
     key.get_report_mp3()
-    key.print_fore_json()
     key.write_all()
     key.read_mp3()
     

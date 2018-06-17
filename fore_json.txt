@@ -3,14 +3,14 @@
         "simpleforecast": {
             "forecastday": [
                 {
-                    "avehumidity": 86,
+                    "avehumidity": 92,
                     "avewind": {
-                        "degrees": 183,
+                        "degrees": 190,
                         "dir": "South",
                         "kph": 2,
                         "mph": 1
                     },
-                    "conditions": "Chance of a Thunderstorm",
+                    "conditions": "Mostly Cloudy",
                     "date": {
                         "ampm": "PM",
                         "day": 16,
@@ -34,8 +34,8 @@
                         "celsius": "29",
                         "fahrenheit": "85"
                     },
-                    "icon": "chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
+                    "icon": "mostlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
                     "low": {
                         "celsius": "18",
                         "fahrenheit": "65"
@@ -49,18 +49,18 @@
                     },
                     "minhumidity": 0,
                     "period": 1,
-                    "pop": 30,
+                    "pop": 20,
                     "qpf_allday": {
-                        "in": 0.12,
-                        "mm": 3
+                        "in": 0.0,
+                        "mm": 0
                     },
                     "qpf_day": {
                         "in": null,
                         "mm": null
                     },
                     "qpf_night": {
-                        "in": 0.12,
-                        "mm": 3
+                        "in": 0.0,
+                        "mm": 0
                     },
                     "skyicon": "",
                     "snow_allday": {
@@ -84,7 +84,7 @@
                         "kph": 6,
                         "mph": 4
                     },
-                    "conditions": "Mostly Cloudy",
+                    "conditions": "Partly Cloudy",
                     "date": {
                         "ampm": "PM",
                         "day": 17,
@@ -105,11 +105,11 @@
                         "year": 2018
                     },
                     "high": {
-                        "celsius": "31",
-                        "fahrenheit": "87"
+                        "celsius": "30",
+                        "fahrenheit": "86"
                     },
-                    "icon": "mostlycloudy",
-                    "icon_url": "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
+                    "icon": "partlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
                     "low": {
                         "celsius": "21",
                         "fahrenheit": "70"
@@ -185,8 +185,8 @@
                     "icon": "chancetstorms",
                     "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
                     "low": {
-                        "celsius": "22",
-                        "fahrenheit": "71"
+                        "celsius": "21",
+                        "fahrenheit": "70"
                     },
                     "maxhumidity": 0,
                     "maxwind": {
@@ -199,16 +199,16 @@
                     "period": 3,
                     "pop": 50,
                     "qpf_allday": {
-                        "in": 0.17,
-                        "mm": 4
+                        "in": 0.2,
+                        "mm": 5
                     },
                     "qpf_day": {
-                        "in": 0.07,
+                        "in": 0.06,
                         "mm": 2
                     },
                     "qpf_night": {
-                        "in": 0.1,
-                        "mm": 3
+                        "in": 0.14,
+                        "mm": 4
                     },
                     "skyicon": "",
                     "snow_allday": {
@@ -225,14 +225,14 @@
                     }
                 },
                 {
-                    "avehumidity": 82,
+                    "avehumidity": 72,
                     "avewind": {
-                        "degrees": 304,
+                        "degrees": 318,
                         "dir": "NW",
                         "kph": 10,
                         "mph": 6
                     },
-                    "conditions": "Chance of a Thunderstorm",
+                    "conditions": "Overcast",
                     "date": {
                         "ampm": "PM",
                         "day": 19,
@@ -253,36 +253,36 @@
                         "year": 2018
                     },
                     "high": {
-                        "celsius": "26",
-                        "fahrenheit": "79"
+                        "celsius": "27",
+                        "fahrenheit": "81"
                     },
-                    "icon": "chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
+                    "icon": "cloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/cloudy.gif",
                     "low": {
-                        "celsius": "17",
-                        "fahrenheit": "63"
+                        "celsius": "16",
+                        "fahrenheit": "61"
                     },
                     "maxhumidity": 0,
                     "maxwind": {
-                        "degrees": 304,
+                        "degrees": 318,
                         "dir": "NW",
                         "kph": 16,
                         "mph": 10
                     },
                     "minhumidity": 0,
                     "period": 4,
-                    "pop": 60,
+                    "pop": 20,
                     "qpf_allday": {
-                        "in": 0.61,
-                        "mm": 15
+                        "in": 0.0,
+                        "mm": 0
                     },
                     "qpf_day": {
-                        "in": 0.4,
-                        "mm": 10
+                        "in": 0.0,
+                        "mm": 0
                     },
                     "qpf_night": {
-                        "in": 0.21,
-                        "mm": 5
+                        "in": 0.0,
+                        "mm": 0
                     },
                     "skyicon": "",
                     "snow_allday": {
@@ -301,47 +301,47 @@
             ]
         },
         "txt_forecast": {
-            "date": "3:34 PM EDT",
+            "date": "8:21 PM EDT",
             "forecastday": [
                 {
-                    "fcttext": "Isolated thunderstorms. Lows overnight in the mid 60s.",
-                    "fcttext_metric": "Slight chance of a thunderstorm. Low 18C.",
-                    "icon": "chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
+                    "fcttext": "Mainly cloudy. Lows overnight in the mid 60s.",
+                    "fcttext_metric": "Mainly cloudy. Low 18C.",
+                    "icon": "mostlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
                     "period": 0,
-                    "pop": "30",
+                    "pop": "20",
                     "title": "Saturday"
                 },
                 {
-                    "fcttext": "Partly cloudy with a slight chance of thunderstorms. Low around 65F. Winds SSE at 5 to 10 mph. Chance of rain 30%.",
-                    "fcttext_metric": "Partly cloudy with a slight chance of thunderstorms. Low 18C. Winds SSE at 10 to 15 km/h. Chance of rain 30%.",
-                    "icon": "nt_chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/nt_chancetstorms.gif",
+                    "fcttext": "Mainly cloudy. A stray shower or thunderstorm is possible. Low around 65F. Winds light and variable.",
+                    "fcttext_metric": "Mainly cloudy. A stray shower or thunderstorm is possible. Low 18C. Winds light and variable.",
+                    "icon": "nt_mostlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_mostlycloudy.gif",
                     "period": 1,
-                    "pop": "30",
+                    "pop": "20",
                     "title": "Saturday Night"
                 },
                 {
-                    "fcttext": "Mainly cloudy. A stray shower or thunderstorm is possible. High 87F. Winds light and variable.",
-                    "fcttext_metric": "Mainly cloudy. A stray shower or thunderstorm is possible. High 31C. Winds light and variable.",
-                    "icon": "mostlycloudy",
-                    "icon_url": "http://icons.wxug.com/i/c/k/mostlycloudy.gif",
+                    "fcttext": "Cloudy skies early will become partly cloudy later in the day. A stray shower or thunderstorm is possible. High 86F. Winds light and variable.",
+                    "fcttext_metric": "Cloudy skies early, then partly cloudy in the afternoon. A stray shower or thunderstorm is possible. High around 30C. Winds light and variable.",
+                    "icon": "partlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
                     "period": 2,
                     "pop": "20",
                     "title": "Sunday"
                 },
                 {
-                    "fcttext": "A few clouds from time to time. Low around 70F. Winds light and variable.",
+                    "fcttext": "Partly cloudy. Low around 70F. Winds light and variable.",
                     "fcttext_metric": "A few clouds from time to time. Low 21C. Winds light and variable.",
                     "icon": "nt_partlycloudy",
                     "icon_url": "http://icons.wxug.com/i/c/k/nt_partlycloudy.gif",
                     "period": 3,
-                    "pop": "10",
+                    "pop": "20",
                     "title": "Sunday Night"
                 },
                 {
-                    "fcttext": "Partly cloudy with afternoon showers or thunderstorms. High near 90F. Winds WSW at 10 to 15 mph. Chance of rain 50%.",
-                    "fcttext_metric": "Partly cloudy with afternoon showers or thunderstorms. High 32C. Winds WSW at 15 to 25 km/h. Chance of rain 50%.",
+                    "fcttext": "Partly cloudy with afternoon showers or thunderstorms. High around 90F. Winds WSW at 10 to 15 mph. Chance of rain 50%.",
+                    "fcttext_metric": "Partly cloudy early. Scattered thunderstorms developing in the afternoon. High 32C. Winds WSW at 15 to 25 km/h. Chance of rain 50%.",
                     "icon": "chancetstorms",
                     "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
                     "period": 4,
@@ -349,8 +349,8 @@
                     "title": "Monday"
                 },
                 {
-                    "fcttext": "Scattered thunderstorms during the evening becoming more widespread overnight. Low 71F. Winds WSW at 5 to 10 mph. Chance of rain 80%.",
-                    "fcttext_metric": "Scattered thunderstorms during the evening becoming more widespread overnight. Low 22C. Winds WSW at 10 to 15 km/h. Chance of rain 80%.",
+                    "fcttext": "Thunderstorms likely in the evening. Then the chance of scattered thunderstorms later on. Low near 70F. Winds W at 5 to 10 mph. Chance of rain 80%.",
+                    "fcttext_metric": "Thunderstorms likely in the evening. Then the chance of scattered thunderstorms later on. Low 21C. Winds W at 10 to 15 km/h. Chance of rain 80%.",
                     "icon": "nt_tstorms",
                     "icon_url": "http://icons.wxug.com/i/c/k/nt_tstorms.gif",
                     "period": 5,
@@ -358,21 +358,21 @@
                     "title": "Monday Night"
                 },
                 {
-                    "fcttext": "Scattered thunderstorms. High 79F. Winds NW at 5 to 10 mph. Chance of rain 60%.",
-                    "fcttext_metric": "Variable clouds with scattered thunderstorms. High 26C. Winds WNW at 10 to 15 km/h. Chance of rain 60%.",
-                    "icon": "chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/chancetstorms.gif",
+                    "fcttext": "Cloudy skies. A stray shower or thunderstorm is possible. High 81F. Winds NW at 5 to 10 mph.",
+                    "fcttext_metric": "Cloudy skies. A stray shower or thunderstorm is possible. High 27C. Winds NW at 10 to 15 km/h.",
+                    "icon": "cloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/cloudy.gif",
                     "period": 6,
-                    "pop": "60",
+                    "pop": "20",
                     "title": "Tuesday"
                 },
                 {
-                    "fcttext": "Scattered thunderstorms in the evening, then variable clouds overnight with more showers at times. Low 63F. Winds light and variable. Chance of rain 40%.",
-                    "fcttext_metric": "Variable clouds with showers and scattered thunderstorms. Storms more numerous during the evening. Low 17C. Winds light and variable. Chance of rain 40%.",
-                    "icon": "nt_chancetstorms",
-                    "icon_url": "http://icons.wxug.com/i/c/k/nt_chancetstorms.gif",
+                    "fcttext": "A few clouds. Low 61F. Winds NE at 5 to 10 mph.",
+                    "fcttext_metric": "Partly cloudy. Low 16C. Winds NE at 10 to 15 km/h.",
+                    "icon": "nt_partlycloudy",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_partlycloudy.gif",
                     "period": 7,
-                    "pop": "40",
+                    "pop": "10",
                     "title": "Tuesday Night"
                 }
             ]
