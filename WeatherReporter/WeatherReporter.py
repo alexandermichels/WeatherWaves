@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
-import json, vlc, urllib2, urllib, time
+import json, vlc, urllib2, time
 from io import open
 from gtts import gTTS
 from google.cloud import texttospeech
@@ -41,8 +41,10 @@ class WeatherReporter(object):
     def __init__(self, filename, state, city):
         file = open(filename)
         self.key = file.read().strip()
-        self.get_conditions(state,city)
-        self.get_forecast(state,city)
+        self.state = state
+        self.city = city
+        self.get_conditions()
+        self.get_forecast()
     
     def __str__(self):
         return self.key
@@ -75,13 +77,13 @@ class WeatherReporter(object):
                     return orig
         return orig.replace(string,"")
         
-    def get_conditions(self, state, city):
+    def get_conditions(self):
         try:
-            self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
+            self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))
             return self.curr_json
         except:
             time.sleep(.1)
-            return self.get_conditions(state,city)
+            return self.get_conditions()
             
     def get_report_mp3(self):
         try:
@@ -116,13 +118,13 @@ class WeatherReporter(object):
     def get_curr_weather(self):
         return self.curr_json[u"current_observation"][u'weather']
         
-    def get_forecast(self, state, city):
+    def get_forecast(self):
         try:
-            self.fore_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, state, city)).read().decode(u"utf-8"))
+            self.fore_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))
             return self.curr_json
         except:
             time.sleep(.1)
-            return self.get_forecast(state,city)
+            return self.get_forecast()
     
     def get_forecast_next_step(self):
         return self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][1]
@@ -192,7 +194,7 @@ class WeatherReporter(object):
         f.close()
         
 def main():
-    key = WeatherReporter(u'WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
+    key = WeatherReporter(u'../WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
     key.get_report_mp3()
     key.write_all()
     key.read_mp3()
