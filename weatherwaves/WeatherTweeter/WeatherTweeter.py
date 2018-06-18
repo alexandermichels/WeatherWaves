@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
-import json, urllib2, urllib, time
+import json, urllib2, urllib, time, sys
 from io import open
 
 class WeatherTweeter(object):
@@ -12,7 +12,7 @@ class WeatherTweeter(object):
         self.city = city
         self.get_alerts()
         self.verbosity = verbosity
-    
+        
     def get_alerts(self):
         try:
             self.alerts = json.loads(urllib2.urlopen("http://api.wunderground.com/api/{}/alerts/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))

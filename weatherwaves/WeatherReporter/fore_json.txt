@@ -1,0 +1,388 @@
+{
+    "forecast": {
+        "simpleforecast": {
+            "forecastday": [
+                {
+                    "avehumidity": 0,
+                    "avewind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "conditions": "Chance of Snow",
+                    "date": {
+                        "ampm": "AM",
+                        "day": 3,
+                        "epoch": "1514995200",
+                        "hour": 11,
+                        "isdst": "0",
+                        "min": "00",
+                        "month": 1,
+                        "monthname": "January",
+                        "monthname_short": "Jan",
+                        "pretty": "11:00 AM EST on January 03, 2018",
+                        "sec": 0,
+                        "tz_long": "America/New_York",
+                        "tz_short": "EST",
+                        "weekday": "Wednesday",
+                        "weekday_short": "Wed",
+                        "yday": 2,
+                        "year": 2018
+                    },
+                    "high": {
+                        "celsius": "-6",
+                        "fahrenheit": "21"
+                    },
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "low": {
+                        "celsius": "-17",
+                        "fahrenheit": "2"
+                    },
+                    "maxhumidity": 0,
+                    "maxwind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "minhumidity": 0,
+                    "period": 1,
+                    "pop": 24,
+                    "qpf_allday": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_day": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_night": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "skyicon": "",
+                    "snow_allday": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_day": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_night": {
+                        "cm": null,
+                        "in": null
+                    }
+                },
+                {
+                    "avehumidity": 0,
+                    "avewind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "conditions": "Snow Showers",
+                    "date": {
+                        "ampm": "AM",
+                        "day": 4,
+                        "epoch": "1515081600",
+                        "hour": 11,
+                        "isdst": "0",
+                        "min": "00",
+                        "month": 1,
+                        "monthname": "January",
+                        "monthname_short": "Jan",
+                        "pretty": "11:00 AM EST on January 04, 2018",
+                        "sec": 0,
+                        "tz_long": "America/New_York",
+                        "tz_short": "EST",
+                        "weekday": "Thursday",
+                        "weekday_short": "Thu",
+                        "yday": 3,
+                        "year": 2018
+                    },
+                    "high": {
+                        "celsius": "-11",
+                        "fahrenheit": "12"
+                    },
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "low": {
+                        "celsius": "-18",
+                        "fahrenheit": "0"
+                    },
+                    "maxhumidity": 0,
+                    "maxwind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "minhumidity": 0,
+                    "period": 2,
+                    "pop": 72,
+                    "qpf_allday": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_day": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_night": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "skyicon": "",
+                    "snow_allday": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_day": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_night": {
+                        "cm": null,
+                        "in": null
+                    }
+                },
+                {
+                    "avehumidity": 0,
+                    "avewind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "conditions": "Chance of Snow",
+                    "date": {
+                        "ampm": "AM",
+                        "day": 5,
+                        "epoch": "1515168000",
+                        "hour": 11,
+                        "isdst": "0",
+                        "min": "00",
+                        "month": 1,
+                        "monthname": "January",
+                        "monthname_short": "Jan",
+                        "pretty": "11:00 AM EST on January 05, 2018",
+                        "sec": 0,
+                        "tz_long": "America/New_York",
+                        "tz_short": "EST",
+                        "weekday": "Friday",
+                        "weekday_short": "Fri",
+                        "yday": 4,
+                        "year": 2018
+                    },
+                    "high": {
+                        "celsius": "-14",
+                        "fahrenheit": "6"
+                    },
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "low": {
+                        "celsius": "-18",
+                        "fahrenheit": "-1"
+                    },
+                    "maxhumidity": 0,
+                    "maxwind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "minhumidity": 0,
+                    "period": 3,
+                    "pop": 42,
+                    "qpf_allday": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_day": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_night": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "skyicon": "",
+                    "snow_allday": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_day": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_night": {
+                        "cm": null,
+                        "in": null
+                    }
+                },
+                {
+                    "avehumidity": 0,
+                    "avewind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "conditions": "Chance of Snow",
+                    "date": {
+                        "ampm": "AM",
+                        "day": 6,
+                        "epoch": "1515254400",
+                        "hour": 11,
+                        "isdst": "0",
+                        "min": "00",
+                        "month": 1,
+                        "monthname": "January",
+                        "monthname_short": "Jan",
+                        "pretty": "11:00 AM EST on January 06, 2018",
+                        "sec": 0,
+                        "tz_long": "America/New_York",
+                        "tz_short": "EST",
+                        "weekday": "Saturday",
+                        "weekday_short": "Sat",
+                        "yday": 5,
+                        "year": 2018
+                    },
+                    "high": {
+                        "celsius": "-13",
+                        "fahrenheit": "8"
+                    },
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "low": {
+                        "celsius": "-19",
+                        "fahrenheit": "-2"
+                    },
+                    "maxhumidity": 0,
+                    "maxwind": {
+                        "degrees": 0,
+                        "dir": "",
+                        "kph": 0,
+                        "mph": 0
+                    },
+                    "minhumidity": 0,
+                    "period": 4,
+                    "pop": 19,
+                    "qpf_allday": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_day": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "qpf_night": {
+                        "in": null,
+                        "mm": null
+                    },
+                    "skyicon": "",
+                    "snow_allday": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_day": {
+                        "cm": null,
+                        "in": null
+                    },
+                    "snow_night": {
+                        "cm": null,
+                        "in": null
+                    }
+                }
+            ]
+        },
+        "txt_forecast": {
+            "date": "",
+            "forecastday": [
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "period": 0,
+                    "pop": "24",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "nt_",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_.gif",
+                    "period": 1,
+                    "pop": "0",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "period": 2,
+                    "pop": "72",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "nt_",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_.gif",
+                    "period": 3,
+                    "pop": "0",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "period": 4,
+                    "pop": "42",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "nt_",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_.gif",
+                    "period": 5,
+                    "pop": "0",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "snow",
+                    "icon_url": "http://icons.wxug.com/i/c/k/snow.gif",
+                    "period": 6,
+                    "pop": "19",
+                    "title": ""
+                },
+                {
+                    "fcttext": "",
+                    "fcttext_metric": "",
+                    "icon": "nt_",
+                    "icon_url": "http://icons.wxug.com/i/c/k/nt_.gif",
+                    "period": 7,
+                    "pop": "0",
+                    "title": ""
+                }
+            ]
+        }
+    },
+    "response": {
+        "features": {
+            "forecast": 1
+        },
+        "termsofService": "http://www.wunderground.com/weather/api/d/terms.html",
+        "version": "0.1"
+    }
+}
