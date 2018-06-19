@@ -8,7 +8,7 @@ For the latest updates check out the [WeatherWaves GitHub](https://github.com/al
 Table of Contents
 =================
 * WeatherReporter
-* Weather Tweeter
+* WeatherTweeter
 
 WeatherReporter
 ===============
