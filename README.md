@@ -2,15 +2,14 @@
 
 WeatherWaves is a project I am developing for Westminster College's Titan Radio. We are hoping to automate various actions resulting from weather conditions such as updating the weather conditions and forecast when no one is on the air and sending out Tweets when there are severe weather warnings.
 
-For the latest updates check out the `WeatherWaves GitHub <https://github.com/alexandermichels/WeatherWaves>`_.
+For the latest updates check out the [WeatherWaves GitHub](https://github.com/alexandermichels/WeatherWaves).
 
 
 Table of Contents
 =================
-* WeatherReporter_.
-* Weather Tweeter_.
+* WeatherReporter
+* Weather Tweeter
 
-.. _WeatherReporter:
 WeatherReporter
 ===============
 
@@ -21,7 +20,6 @@ WeatherReporter is a package for fetching the current weather conditions and the
     reporter.write_all() #writes report and JSONs to txt files
     reporter.read_mp3() #uses VLC to read to the MP3
 
-.. _WeatherTweeter
 WeatherTweeter
 ==============
 
