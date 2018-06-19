@@ -27,7 +27,7 @@ WeatherReporter is a package for fetching the current weather conditions and the
 
 WeatherReporter will produce different output based on the time of day and day of week. If it is Friday or Saturday, it will produce a report for the rest of the weekend (Friday through Sunday Night). At night, the report will be for the current conditions and the next day. All other times, the reporter reports on the current conditions and the next two times steps. For example, If it is Tuesday morning, the report will be for Tuesday, Tuesday Night, and Wednesday. These times are determined by WeatherUnderground and I rely on the title of the forecast to determine them. An example from an actual Tuesday forecast can be found below.
 
-> Wilmington area weather, it is currently 79 and it is Overcast. Tuesday Night you should expect Partly cloudy skies. Low of 62. Wednesday you should expect Rain showers early with overcast skies later in the day. High of 73. Chance of rain 40%.
+> New Wilmington area weather, it is currently 80 and it is Mostly cloudy skies. Tuesday Night you should expect Partly cloudy skies. Low of 62. Wednesday you should expect Rain showers early with overcast skies later in the day. High of 73. Chance of rain 40%.
 
 ### WeatherTweeter
 

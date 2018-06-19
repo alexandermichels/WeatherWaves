@@ -80,9 +80,9 @@ class WeatherReporter(object):
         
     def get_conditions_string(self):
         if (abs(self.get_curr_temp() - self.get_curr_feels_like()) > 5):
-            return self.format_string_wind(u"Wilmington area weather, it is currently {}, but feels like {}, and it is {}.".format(self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather()))
+            return self.format_string_wind(u"{} area weather, it is currently {}, but feels like {}, and it is {}.".format(self.city.replace("_", " "), self.get_curr_temp(), self.get_curr_feels_like(), self.get_curr_weather()))
         else:
-            return self.format_string_wind(u"Wilmington area weather, it is currently {} and it is {}.".format(self.get_curr_temp(), self.get_curr_weather()))
+            return self.format_string_wind(u"{} area weather, it is currently {} and it is {}.".format(self.city.replace("_", " "), self.get_curr_temp(), self.get_curr_weather()))
         
     def get_curr_feels_like(self):
         return int(float(self.curr_json[u"current_observation"][u"feelslike_f"]))
