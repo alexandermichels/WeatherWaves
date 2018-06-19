@@ -27,9 +27,7 @@ class WeatherTweeter(object):
         self.twitter_key_dict['consumer_secret'] = file.readline().strip()
         self.twitter_key_dict['access_token'] = file.readline().strip()
         self.twitter_key_dict['access_token_secret'] = file.readline().strip()
-        api = twitter.Api(consumer_key=self.twitter_key_dict['consumer_key'], consumer_secret=self.twitter_key_dict['consumer_secret'], access_token_key=self.twitter_key_dict['access_token'], access_token_secret=self.twitter_key_dict['access_token_secret'])
-        self.twitter_credentials = api.VerifyCredentials()
-        return True
+        self.twitter_api = twitter.Api(consumer_key=self.twitter_key_dict['consumer_key'], consumer_secret=self.twitter_key_dict['consumer_secret'], access_token_key=self.twitter_key_dict['access_token'], access_token_secret=self.twitter_key_dict['access_token_secret'])
         
     def is_alert(self):
         return len(self.alerts["alerts"])
@@ -63,13 +61,17 @@ class WeatherTweeter(object):
         
     def print_twitter_credentials(self):
         print(self.twitter_credentials)
+        
+    def tweet_alerts(self):
+        if (self.is_alert() > 0):
+            self.twitter_api.PostUpdate(self.format_message())
     
             
 def main():
     tweeter = WeatherTweeter("TwitterAPIKey", u'NY', u'Portland', weather_key_file = u'../WeatherUndergroundAPIKey')
     tweeter.print_alerts()
     tweeter.connect_to_twitter()
-    tweeter.print_twitter_credentials()
+    tweeter.tweet_alerts()
     
 if __name__ == u"__main__" :
     main()
