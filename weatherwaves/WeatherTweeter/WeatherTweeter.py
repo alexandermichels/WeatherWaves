@@ -2,12 +2,19 @@
 from __future__ import absolute_import
 import json, urllib2, urllib, time, sys, twitter
 from io import open
+sys.path.append("../..")
+from weatherwaves.WeatherConnector import *
 
 class WeatherTweeter(object):
     
-    def __init__(self, weather_key, twitter_key, state, city):
-        file = open(weather_key)
-        self.key = file.read().strip()
+    def __init__(self, twitter_key, state, city, weather_key_file = None, weather_key = None):
+        if (weather_key_file == None and weather_key == None):
+            pass
+        elif (weather_key == None):
+            self.weather_connector = WeatherConnector(filename = weather_key_file)
+        elif (weather_key_file == None):
+            self.weather_connector = WeatherConnector(api_key = weather_key)
+        
         self.twitter_key = twitter_key
         self.state = state
         self.city = city
@@ -40,13 +47,13 @@ class WeatherTweeter(object):
         
     def get_alerts(self):
         try:
-            self.alerts = json.loads(urllib2.urlopen("http://api.wunderground.com/api/{}/alerts/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))
+            self.alerts = self.weather_connector.get_alerts(state = self.state, city = self.city)
             try:
                 self.alerts["alerts"]
                 return self.alerts
             except:            
                 time.sleep(.1)
-                return self.get_alerts()
+                return self.weather_connector.get_alerts(state = self.state, city = self.city)
         except:
             time.sleep(.1)
             return self.get_alerts()
@@ -59,7 +66,7 @@ class WeatherTweeter(object):
     
             
 def main():
-    tweeter = WeatherTweeter(u'../WeatherUndergroundAPIKey', "TwitterAPIKey", u'NY', u'Portland')
+    tweeter = WeatherTweeter("TwitterAPIKey", u'NY', u'Portland', weather_key_file = u'../WeatherUndergroundAPIKey')
     tweeter.print_alerts()
     tweeter.connect_to_twitter()
     tweeter.print_twitter_credentials()

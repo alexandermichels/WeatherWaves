@@ -1,18 +1,25 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
-import json, vlc, urllib2, time
+import json, vlc, urllib2, time, sys
 from io import open
 from gtts import gTTS
 from google.cloud import texttospeech
 from google.oauth2 import service_account
+sys.path.append("../..")
+from weatherwaves.WeatherConnector import *
 
 class WeatherReporter(object):
 
     mp3_filename = u"weather.mp3"
     
-    def __init__(self, weather_key, state, city):
-        file = open(weather_key)
-        self.key = file.read().strip()
+    def __init__(self, state, city, key_file = None, weather_key = None):
+        if (key_file == None and weather_key == None):
+            pass
+        elif (weather_key == None):
+            self.weather_connector = WeatherConnector(filename = key_file)
+        elif (key_file == None):
+            self.weather_connector = WeatherConnector(api_key = weather_key)
+        
         self.state = state
         self.city = city
         self.get_conditions()
@@ -47,11 +54,11 @@ class WeatherReporter(object):
         
     def get_conditions(self):
         try:
-            self.curr_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/conditions/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))
+            self.curr_json = self.weather_connector.get_conditions(state = self.state, city = self.city)
             return self.curr_json
         except:
             time.sleep(.1)
-            return self.get_conditions()
+            return self.weather_connector.get_conditions(state = self.state, city = self.city)
             
     def get_report_mp3(self):
         try:
@@ -88,11 +95,11 @@ class WeatherReporter(object):
         
     def get_forecast(self):
         try:
-            self.fore_json = json.loads(urllib2.urlopen(u"http://api.wunderground.com/api/{}/forecast/q/{}/{}.json".format(self.key, self.state, self.city)).read().decode(u"utf-8"))
-            return self.curr_json
+            self.fore_json = self.weather_connector.get_forecast(state = self.state, city = self.city)
+            return self.fore_json
         except:
             time.sleep(.1)
-            return self.get_forecast()
+            return self.weather_connector.get_forecast(state = self.state, city = self.city)
     
     def get_forecast_next_step(self):
         return self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][1]
@@ -111,7 +118,7 @@ class WeatherReporter(object):
     def get_forecast_weekend_string(self):
         i = 1
         s = self.get_conditions_string()
-        while((("Friday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']))):
+        while((("Friday" in self.fore_json["forecast"]["txt_forecast"]["forecastday"][i][u'title']) or ("Saturday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']) or ("Sunday" in self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title']))):
             s = s + self.format_string_wind(u" {} you should expect {}".format(self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'title'], self.fore_json[u"forecast"][u"txt_forecast"][u"forecastday"][i][u'fcttext']))
             i = i+1
         return s
@@ -162,7 +169,7 @@ class WeatherReporter(object):
         f.close()
         
 def main():
-    reporter = WeatherReporter(u'../WeatherUndergroundAPIKey', u'PA', u'New_Wilmington')
+    reporter = WeatherReporter(u'PA', u'New_Wilmington', key_file = u'../WeatherUndergroundAPIKey')
     reporter.get_report_mp3()
     reporter.write_all()
     reporter.read_mp3()
