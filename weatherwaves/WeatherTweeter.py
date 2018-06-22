@@ -35,12 +35,12 @@ class WeatherTweeter(object):
         if (self.is_alert() == 1):
             description = self.alerts["alerts"][0]["description"]
             expires = self.alerts["alerts"][0]["expires"].replace("EDT ", "")
-            return "The National Weather Service has issued a {} for the New Wilmington area which expires {}. Stay safe!".format(description, expires)
+            return "The National Weather Service has issued a {} for the {} area which expires {}. Stay safe!".format(description, self.city.replace("_", " "), expires)
         else:
             s = ""
             for i in range(len(self.alerts["alerts"])):
                 s += "\n{} which expires {}".format(self.alerts["alerts"][i]["description"], self.alerts["alerts"][i]["expires"].replace("EDT ", ""))
-            return "The National Weather Service has issued the following for the New Wilmington area:" + s + "\nStay safe!"
+            return "The National Weather Service has issued the following for the " + self.city.replace("_", " ") + " area:" + s + "\nStay safe!"
         
     def get_alerts(self):
         try:
@@ -67,7 +67,7 @@ class WeatherTweeter(object):
     
             
 def main():
-    tweeter = WeatherTweeter("TwitterAPIKey", u'NY', u'Portland', weather_key_file = u'WeatherUndergroundAPIKey')
+    tweeter = WeatherTweeter("TwitterAPIKey", "VA", "Richmond", weather_key_file = u'WeatherUndergroundAPIKey')
     tweeter.print_alerts()
     tweeter.connect_to_twitter()
     tweeter.tweet_alerts()
