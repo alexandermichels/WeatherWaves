@@ -53,8 +53,8 @@ Example outputs from WeatherTweeter can be found below. The first is an example 
 
 > The National Weather Service has issued a Flash Flood Watch for the Richmond area which expires 12:00 AM on June 23, 2018. Stay safe!
 
-> The National Weather Service has issued the following for the Tallulah area:
-Tornado Warning which expires 4:30 PM CDT on June 22, 2018
-Severe Thunderstorm Watch which expires 7:00 PM CDT on June 22, 2018
+> The National Weather Service has issued the following for the Tallulah area: \n
+Tornado Warning which expires 4:30 PM CDT on June 22, 2018 \n
+Severe Thunderstorm Watch which expires 7:00 PM CDT on June 22, 2018 \n
 Stay safe!
 
