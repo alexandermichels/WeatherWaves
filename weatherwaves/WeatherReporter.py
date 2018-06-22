@@ -29,7 +29,7 @@ class WeatherReporter(object):
         return self.key
     
     def format_string(self, string):
-        string = string.replace(u"F.", u".").replace("Low", "Low of").replace("High", "High of").replace("Cloudy", "cloudy")
+        string = string.replace(u"F.", u".").replace("Low", "Low of").replace("High", "High of").replace("Cloudy", "cloudy").replace("Generally fair", "Generally fair weather")
         string = string.replace("cloudy", "cloudy skies")
         string = string.replace("skies skies", "skies")
         dirAbr = [ u' N ', u' E ', u' S ', u' W ', u' NW ', u' NE ', u' SW ', u' SE ', u' NNE ', u' ENE ', u' ESE ', u' SSE ', u' SSW ', u' WSW ', u' WNW ', u' NNW ']

@@ -27,7 +27,7 @@ WeatherReporter is a package for fetching the current weather conditions and the
 
 WeatherReporter will produce different output based on the time of day and day of week. If it is Friday or Saturday, it will produce a report for the rest of the weekend (Friday through Sunday Night). An actual example of a weekend forecast can be found below:
 
-> New Wilmington area weather, it is currently 71 and it is Overcast. Friday Night you should expect Partly to mostly cloudy skies with a chance of thunderstorms. Low of 63. Chance of rain 60%. Saturday you should expect Thunderstorms likely. High of near 75. Chance of rain 90%. Saturday Night you should expect Scattered thunderstorms during the evening, then cloudy skies overnight. Low of 64. Chance of rain 60%. Sunday you should expect Scattered thunderstorms in the morning, then mainly cloudy skies during the afternoon with thunderstorms likely. High of near 75. Chance of rain 80%. Sunday Night you should expect Generally fair. Low of 58.
+> New Wilmington area weather, it is currently 71 and it is Overcast. Friday Night you should expect Partly to mostly cloudy skies with a chance of thunderstorms. Low of 63. Chance of rain 60%. Saturday you should expect Thunderstorms likely. High of near 75. Chance of rain 90%. Saturday Night you should expect Scattered thunderstorms during the evening, then cloudy skies overnight. Low of 64. Chance of rain 60%. Sunday you should expect Scattered thunderstorms in the morning, then mainly cloudy skies during the afternoon with thunderstorms likely. High of near 75. Chance of rain 80%. Sunday Night you should expect Generally fair weather. Low of 58.
 
 At night, the report will be for the current conditions and the next day. All other times, the reporter reports on the current conditions and the next two times steps. For example, If it is Tuesday morning, the report will be for Tuesday, Tuesday Night, and Wednesday. determine them. An example from an actual Tuesday forecast can be found below.
 
@@ -43,3 +43,4 @@ WeatherTweeter currently just checks for alerts such as Severe Weather Warnings 
     tweeter = WeatherTweeter("TwitterAPIKey", "NY", "Portland", weather_key_file = "../WeatherUndergroundAPIKey") #instantiate
     tweeter.print_alerts() #prints the text of the Tweet
     tweeter.connect_to_twitter() #connects to Twitter using your credentials
+    tweeter.tweet_alerts() #tweets if there are alerts

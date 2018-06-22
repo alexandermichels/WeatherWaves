@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 import json, urllib2, urllib, time, sys, twitter
 from io import open
-from weatherwaves.WeatherConnector import *
+from WeatherConnector import *
 
 class WeatherTweeter(object):
     
