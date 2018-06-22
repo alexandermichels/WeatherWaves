@@ -5,7 +5,6 @@ from io import open
 from gtts import gTTS
 from google.cloud import texttospeech
 from google.oauth2 import service_account
-sys.path.append("../..")
 from weatherwaves.WeatherConnector import *
 
 class WeatherReporter(object):
@@ -169,7 +168,7 @@ class WeatherReporter(object):
         f.close()
         
 def main():
-    reporter = WeatherReporter(u'PA', u'New_Wilmington', key_file = u'../WeatherUndergroundAPIKey')
+    reporter = WeatherReporter(u'PA', u'New_Wilmington', key_file = u'WeatherUndergroundAPIKey')
     reporter.get_report_mp3()
     reporter.write_all()
     reporter.read_mp3()

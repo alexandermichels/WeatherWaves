@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 import json, urllib2, urllib, time, sys, twitter
 from io import open
-sys.path.append("../..")
 from weatherwaves.WeatherConnector import *
 
 class WeatherTweeter(object):
@@ -68,7 +67,7 @@ class WeatherTweeter(object):
     
             
 def main():
-    tweeter = WeatherTweeter("TwitterAPIKey", u'NY', u'Portland', weather_key_file = u'../WeatherUndergroundAPIKey')
+    tweeter = WeatherTweeter("TwitterAPIKey", u'NY', u'Portland', weather_key_file = u'WeatherUndergroundAPIKey')
     tweeter.print_alerts()
     tweeter.connect_to_twitter()
     tweeter.tweet_alerts()
