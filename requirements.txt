@@ -3,5 +3,6 @@ google-cloud-core
 google-cloud-speech
 google-cloud-texttospeech
 gtts
+python-twitter
 twitter
 vlc

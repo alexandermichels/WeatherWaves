@@ -30,9 +30,9 @@ class DarkSkyConnector(WeatherConnector):
         ''' add config file that takes long, lat, name of place '''
         with open(config_file) as config:
             data = json.load(config)
-            self.key = data["darkskykey"]
-            self.lat = float(data["latitude"])
-            self.long = float(data["longitude"])
+            self.key = data["darksky"]["darkskykey"]
+            self.lat = float(data["darksky"]["latitude"])
+            self.long = float(data["darksky"]["longitude"])
             self.location = data["location"]
             if "name" in data.keys():
                 self.name = data["name"]

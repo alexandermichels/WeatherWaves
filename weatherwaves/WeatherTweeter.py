@@ -5,32 +5,21 @@ from io import open
 from WeatherConnector import *
 
 class WeatherTweeter(object):
-    ''' needs to be updated, add config file '''
 
-    def __init__(self, twitter_key, state, city, weather_key_file = None, weather_key = None):
-        if (weather_key_file == None and weather_key == None):
-            pass
-        elif (weather_key == None):
-            self.weather_connector = WeatherConnector(filename = weather_key_file)
-        elif (weather_key_file == None):
-            self.weather_connector = WeatherConnector(api_key = weather_key)
+    def __init__(self, config_file_path, weatherconnector):
+        with open(config_file_path) as config:
+            data = json.load(config)
+            try:
+                self.twitter_keys = data["twitter_keys"]
+            except Exception as e:
+                print("The following error occurred while accessing Twitter keys in config file {}:\n{}".format(config_file_path, e))
+        try:
+            print("Establishing a connection to Twitter...")
+            self.twitter_api = twitter.Api(consumer_key=self.twitter_keys['consumer_key'], consumer_secret=self.twitter_keys['consumer_secret'], access_token_key=self.twitter_keys['access_token'], access_token_secret=self.twitter_keys['access_token_secret'])
+        except Exception as e:
+            print("There was an error connecting to Twitter:\n{}".format(e))
 
-        self.twitter_key = twitter_key
-        self.state = state
-        self.city = city
-        self.get_alerts()
-
-    def connect_to_twitter(self):
-        file = open(self.twitter_key)
-        self.twitter_key_dict = {}
-        self.twitter_key_dict['consumer_key'] = file.readline().strip()
-        self.twitter_key_dict['consumer_secret'] = file.readline().strip()
-        self.twitter_key_dict['access_token'] = file.readline().strip()
-        self.twitter_key_dict['access_token_secret'] = file.readline().strip()
-        self.twitter_api = twitter.Api(consumer_key=self.twitter_key_dict['consumer_key'], consumer_secret=self.twitter_key_dict['consumer_secret'], access_token_key=self.twitter_key_dict['access_token'], access_token_secret=self.twitter_key_dict['access_token_secret'])
-
-    def is_alert(self):
-        return len(self.alerts["alerts"])
+        self.weatherconnector = weatherconnector
 
     def format_message(self):
         if (self.is_alert() == 1):
@@ -43,35 +32,22 @@ class WeatherTweeter(object):
                 s += "\n{} which expires {}".format(self.alerts["alerts"][i]["description"], self.alerts["alerts"][i]["expires"].replace("EDT ", ""))
             return "The National Weather Service has issued the following for the " + self.city.replace("_", " ") + " area:" + s + "\nStay safe!"
 
-    def get_alerts(self):
-        try:
-            self.alerts = self.weather_connector.get_alerts(state = self.state, city = self.city)
-            try:
-                self.alerts["alerts"]
-                return self.alerts
-            except:
-                time.sleep(.1)
-                return self.weather_connector.get_alerts(state = self.state, city = self.city)
-        except:
-            time.sleep(.1)
-            return self.get_alerts()
-
     def print_alerts(self):
-        print(json.dumps(self.alerts, sort_keys = True, indent = 4))
-
-    def print_twitter_credentials(self):
-        print(self.twitter_credentials)
+        if self.weatherconnector.is_alert():
+            print(self.weatherconnector.get_alert_desc())
+        else:
+            print("No alerts for {} at the moment".format(self.weatherconnector.location))
 
     def tweet_alerts(self):
-        if (self.is_alert() > 0):
+        if self.weatherconnector.is_alert():
             self.twitter_api.PostUpdate(self.format_message())
 
 
 def main():
-    tweeter = WeatherTweeter("TwitterAPIKey", "VA", "Richmond", weather_key_file = u'WeatherUndergroundAPIKey')
+    d = DarkSkyConnector("keys/config.json")
+    tweeter = WeatherTweeter("keys/config.json", d)
     tweeter.print_alerts()
-    tweeter.connect_to_twitter()
-    tweeter.tweet_alerts()
+    # tweeter.tweet_alerts()
 
 if __name__ == u"__main__" :
     main()
